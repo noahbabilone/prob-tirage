@@ -1,0 +1,44 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Result
+ *
+ * @ORM\Table(name="result")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ResultRepository")
+ */
+class Result
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime", unique=true)
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="game", type="string", length=255)
+     */
+    private $game;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Number", mappedBy="restaurant",cascade={"persist", "remove"})
+     */
+    private $numbers;
+    
+}
+
