@@ -18,3 +18,5 @@
 .idea/*
 src/AppBundle/Entity/ResultNumber.php~
 src/AppBundle/Resources/
+
+\.idea/
