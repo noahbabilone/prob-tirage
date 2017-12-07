@@ -1,8 +1,8 @@
 <?php
 
 namespace AppBundle\Entity;
-//use Gedmo\Mapping\Annotation As Gedmo;
 
+use Gedmo\Mapping\Annotation As Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,19 +51,17 @@ class Game
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $created;
-//         * @Gedmo\Timestampable(on="create")
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column( type="datetime", nullable=true)
      */
-    private $updated;
-//     * @Gedmo\Timestampable(on="update")
+    private $updated;     
 
     /**
      * @var bool
@@ -71,7 +69,6 @@ class Game
      * @ORM\Column(name="visible", type="boolean", nullable=true ,options={ "default":true })
      */
     private $visible;
-
 
 
     /**
