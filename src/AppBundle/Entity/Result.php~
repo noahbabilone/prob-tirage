@@ -24,21 +24,29 @@ class Result
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime", unique=true)
+     * @ORM\Column(name="date", type="datetime", nullable=true)
      */
     private $date;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="game", type="string", length=255)
+     * @ORM\Column(name="game", type="string", length=255, nullable=true)
      */
     private $game;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Number", mappedBy="restaurant",cascade={"persist", "remove"})
-     */
-    private $numbers;
-    
-}
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GoodNumber", mappedBy="$result",cascade={"persist", "remove"})
+     */
+    private $goodNumbers;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="joker_plus", type="string", length=255, nullable=true)
+     */
+    private $JOKERPLUS;
+
+
+}

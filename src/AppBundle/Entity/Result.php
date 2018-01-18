@@ -24,28 +24,37 @@ class Result
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime", unique=true)
+     * @ORM\Column(name="date", type="datetime", nullable=true)
      */
     private $date;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="game", type="string", length=255)
+     * @ORM\Column(name="game", type="string", length=255, nullable=true)
      */
     private $game;
-    
+
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Number", mappedBy="restaurant",cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GoodNumber", mappedBy="$result",cascade={"persist", "remove"})
      */
-    private $numbers;
-    
+    private $goodNumbers;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="joker_plus", type="string", length=255, nullable=true)
+     */
+    private $JOKERPLUS;
+
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->numbers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->goodNumbers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -107,36 +116,60 @@ class Result
     }
 
     /**
-     * Add number
+     * Set jOKERPLUS
      *
-     * @param \AppBundle\Entity\Number $number
+     * @param string $jOKERPLUS
      *
      * @return Result
      */
-    public function addNumber(\AppBundle\Entity\Number $number)
+    public function setJOKERPLUS($jOKERPLUS)
     {
-        $this->numbers[] = $number;
+        $this->JOKERPLUS = $jOKERPLUS;
 
         return $this;
     }
 
     /**
-     * Remove number
+     * Get jOKERPLUS
      *
-     * @param \AppBundle\Entity\Number $number
+     * @return string
      */
-    public function removeNumber(\AppBundle\Entity\Number $number)
+    public function getJOKERPLUS()
     {
-        $this->numbers->removeElement($number);
+        return $this->JOKERPLUS;
     }
 
     /**
-     * Get numbers
+     * Add goodNumber
+     *
+     * @param \AppBundle\Entity\GoodNumber $goodNumber
+     *
+     * @return Result
+     */
+    public function addGoodNumber(\AppBundle\Entity\GoodNumber $goodNumber)
+    {
+        $this->goodNumbers[] = $goodNumber;
+
+        return $this;
+    }
+
+    /**
+     * Remove goodNumber
+     *
+     * @param \AppBundle\Entity\GoodNumber $goodNumber
+     */
+    public function removeGoodNumber(\AppBundle\Entity\GoodNumber $goodNumber)
+    {
+        $this->goodNumbers->removeElement($goodNumber);
+    }
+
+    /**
+     * Get goodNumbers
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getNumbers()
+    public function getGoodNumbers()
     {
-        return $this->numbers;
+        return $this->goodNumbers;
     }
 }

@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Game
 {
+    const LOTO = "LOTO";
+    const EUROMILLIONS = "EUROMILLIONS";
+
     /**
      * @var int
      *
@@ -61,7 +64,7 @@ class Game
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column( type="datetime", nullable=true)
      */
-    private $updated;     
+    private $updated;
 
     /**
      * @var bool
@@ -82,6 +85,16 @@ class Game
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -96,13 +109,13 @@ class Game
     }
 
     /**
-     * Get name
+     * Get min
      *
-     * @return string
+     * @return integer
      */
-    public function getName()
+    public function getMin()
     {
-        return $this->name;
+        return $this->min;
     }
 
     /**
@@ -120,13 +133,13 @@ class Game
     }
 
     /**
-     * Get min
+     * Get max
      *
-     * @return integer
+     * @return string
      */
-    public function getMin()
+    public function getMax()
     {
-        return $this->min;
+        return $this->max;
     }
 
     /**
@@ -144,13 +157,13 @@ class Game
     }
 
     /**
-     * Get max
+     * Get length
      *
      * @return string
      */
-    public function getMax()
+    public function getLength()
     {
-        return $this->max;
+        return $this->length;
     }
 
     /**
@@ -168,13 +181,13 @@ class Game
     }
 
     /**
-     * Get length
+     * Get created
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getLength()
+    public function getCreated()
     {
-        return $this->length;
+        return $this->created;
     }
 
     /**
@@ -192,13 +205,13 @@ class Game
     }
 
     /**
-     * Get created
+     * Get updated
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getUpdated()
     {
-        return $this->created;
+        return $this->updated;
     }
 
     /**
@@ -216,13 +229,13 @@ class Game
     }
 
     /**
-     * Get updated
+     * Get visible
      *
-     * @return \DateTime
+     * @return boolean
      */
-    public function getUpdated()
+    public function getVisible()
     {
-        return $this->updated;
+        return $this->visible;
     }
 
     /**
@@ -237,15 +250,5 @@ class Game
         $this->visible = $visible;
 
         return $this;
-    }
-
-    /**
-     * Get visible
-     *
-     * @return boolean
-     */
-    public function getVisible()
-    {
-        return $this->visible;
     }
 }
