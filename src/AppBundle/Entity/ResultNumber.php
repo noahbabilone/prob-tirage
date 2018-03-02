@@ -15,23 +15,23 @@ use Doctrine\ORM\Mapping as ORM;
 class ResultNumber
 {
     /**
-     * @var Result
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     *     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Result")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="result_id", referencedColumnName="id")
-     * })
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var Result
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Result", inversedBy="resultNumbers")
      */
     private $result;
 
-
     /**
      * @var Number
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Number")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="number_id", referencedColumnName="id")
-     * })
      */
     private $number;
 
@@ -45,7 +45,7 @@ class ResultNumber
     /**
      * @var bool
      *
-     * @ORM\Column(name="bonus", type="boolean", nullable=true)
+     * @ORM\Column(name="bonus", type="boolean", nullable=true,options={ "default":false })
      */
     private $bonus;
 
@@ -63,12 +63,17 @@ class ResultNumber
      */
     private $updated;
 
+   
+
     /**
-     * @var bool
+     * Get id
      *
-     * @ORM\Column(name="visible", type="boolean", nullable=true ,options={ "default":true })
+     * @return integer
      */
-    private $visible;
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set position
@@ -167,37 +172,13 @@ class ResultNumber
     }
 
     /**
-     * Set visible
-     *
-     * @param boolean $visible
-     *
-     * @return ResultNumber
-     */
-    public function setVisible($visible)
-    {
-        $this->visible = $visible;
-
-        return $this;
-    }
-
-    /**
-     * Get visible
-     *
-     * @return boolean
-     */
-    public function getVisible()
-    {
-        return $this->visible;
-    }
-
-    /**
      * Set result
      *
-     * @param \BackBundle\Entity\Result $result
+     * @param \AppBundle\Entity\Result $result
      *
      * @return ResultNumber
      */
-    public function setResult(\BackBundle\Entity\Result $result)
+    public function setResult(\AppBundle\Entity\Result $result = null)
     {
         $this->result = $result;
 
@@ -207,7 +188,7 @@ class ResultNumber
     /**
      * Get result
      *
-     * @return \BackBundle\Entity\Result
+     * @return \AppBundle\Entity\Result
      */
     public function getResult()
     {
@@ -217,11 +198,11 @@ class ResultNumber
     /**
      * Set number
      *
-     * @param \BackBundle\Entity\Number $number
+     * @param \AppBundle\Entity\Number $number
      *
      * @return ResultNumber
      */
-    public function setNumber(\BackBundle\Entity\Number $number)
+    public function setNumber(\AppBundle\Entity\Number $number = null)
     {
         $this->number = $number;
 
@@ -231,7 +212,7 @@ class ResultNumber
     /**
      * Get number
      *
-     * @return \BackBundle\Entity\Number
+     * @return \AppBundle\Entity\Number
      */
     public function getNumber()
     {

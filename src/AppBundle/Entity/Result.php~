@@ -29,24 +29,43 @@ class Result
     private $date;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="game", type="string", length=255, nullable=true)
+     * @ORM\Column(name="codes_to_20k", type="string", length=255, nullable=true)
+     */
+    private $codesTo20k;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Game", inversedBy="results")
      */
     private $game;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GoodNumber", mappedBy="$result",cascade={"persist", "remove"})
-     */
-    private $goodNumbers;
-
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Number", inversedBy="results")
+     * */
+    private $numberChance;
 
     /**
-     * @var string
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GoodNumber", mappedBy="result",cascade={"persist", "remove"})
+     */
+    private $goodNumbers; 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ResultNumber", mappedBy="result",cascade={"persist", "remove"})
+     */
+    private $resultNumbers;
+
+    /**
+     * @var integer
      *
-     * @ORM\Column(name="joker_plus", type="string", length=255, nullable=true)
+     * @ORM\Column(name="joker_plus", type="integer", length=255, nullable=true)
      */
     private $JOKERPLUS;
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="visible", type="boolean", nullable=true ,options={ "default":true })
+     */
+    private $visible;
 
 
 }

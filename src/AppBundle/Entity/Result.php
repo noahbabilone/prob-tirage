@@ -29,24 +29,43 @@ class Result
     private $date;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="game", type="string", length=255, nullable=true)
+     * @ORM\Column(name="codes_to_20k", type="string", length=255, nullable=true)
+     */
+    private $codesTo20k;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Game", inversedBy="results")
      */
     private $game;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GoodNumber", mappedBy="$result",cascade={"persist", "remove"})
-     */
-    private $goodNumbers;
-
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Number", inversedBy="results")
+     * */
+    private $numberChance;
 
     /**
-     * @var string
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GoodNumber", mappedBy="result",cascade={"persist", "remove"})
+     */
+    private $goodNumbers; 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ResultNumber", mappedBy="result",cascade={"persist", "remove"})
+     */
+    private $resultNumbers;
+
+    /**
+     * @var integer
      *
-     * @ORM\Column(name="joker_plus", type="string", length=255, nullable=true)
+     * @ORM\Column(name="joker_plus", type="integer", length=255, nullable=true)
      */
     private $JOKERPLUS;
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="visible", type="boolean", nullable=true ,options={ "default":true })
+     */
+    private $visible;
 
 
     /**
@@ -55,6 +74,7 @@ class Result
     public function __construct()
     {
         $this->goodNumbers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->resultNumbers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -92,33 +112,33 @@ class Result
     }
 
     /**
-     * Set game
+     * Set codesTo20k
      *
-     * @param string $game
+     * @param string $codesTo20k
      *
      * @return Result
      */
-    public function setGame($game)
+    public function setCodesTo20k($codesTo20k)
     {
-        $this->game = $game;
+        $this->codesTo20k = $codesTo20k;
 
         return $this;
     }
 
     /**
-     * Get game
+     * Get codesTo20k
      *
      * @return string
      */
-    public function getGame()
+    public function getCodesTo20k()
     {
-        return $this->game;
+        return $this->codesTo20k;
     }
 
     /**
      * Set jOKERPLUS
      *
-     * @param string $jOKERPLUS
+     * @param integer $jOKERPLUS
      *
      * @return Result
      */
@@ -132,11 +152,83 @@ class Result
     /**
      * Get jOKERPLUS
      *
-     * @return string
+     * @return integer
      */
     public function getJOKERPLUS()
     {
         return $this->JOKERPLUS;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean $visible
+     *
+     * @return Result
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Set game
+     *
+     * @param \AppBundle\Entity\Game $game
+     *
+     * @return Result
+     */
+    public function setGame(\AppBundle\Entity\Game $game = null)
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Get game
+     *
+     * @return \AppBundle\Entity\Game
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * Set numberChance
+     *
+     * @param \AppBundle\Entity\Number $numberChance
+     *
+     * @return Result
+     */
+    public function setNumberChance(\AppBundle\Entity\Number $numberChance = null)
+    {
+        $this->numberChance = $numberChance;
+
+        return $this;
+    }
+
+    /**
+     * Get numberChance
+     *
+     * @return \AppBundle\Entity\Number
+     */
+    public function getNumberChance()
+    {
+        return $this->numberChance;
     }
 
     /**
@@ -171,5 +263,39 @@ class Result
     public function getGoodNumbers()
     {
         return $this->goodNumbers;
+    }
+
+    /**
+     * Add resultNumber
+     *
+     * @param \AppBundle\Entity\ResultNumber $resultNumber
+     *
+     * @return Result
+     */
+    public function addResultNumber(\AppBundle\Entity\ResultNumber $resultNumber)
+    {
+        $this->resultNumbers[] = $resultNumber;
+
+        return $this;
+    }
+
+    /**
+     * Remove resultNumber
+     *
+     * @param \AppBundle\Entity\ResultNumber $resultNumber
+     */
+    public function removeResultNumber(\AppBundle\Entity\ResultNumber $resultNumber)
+    {
+        $this->resultNumbers->removeElement($resultNumber);
+    }
+
+    /**
+     * Get resultNumbers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResultNumbers()
+    {
+        return $this->resultNumbers;
     }
 }

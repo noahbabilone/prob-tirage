@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class GoodNumber
 {
+    const FiveEGoodNumbAddNumbChange = '5 bons numéros + numéro chance';
+    const FiveEGoodNumb = '5 bons numéros';
+    const FourEGoodNumbAddNumbChange = '4 bons numéros + numéro chance';
+    const FourEGoodNumb = '4 bons numéros';
+    const ThreeGoodNumbAddNumbChange = '3 bons numéros + numéro chance';
+    const ThreeGoodNumb= '3 bons numéros';    
+    const TwoGoodNumbAddNumbChange = '2 bons numéros + numéro chance';
+    const TwoGoodNumb= '2 bons numéros';
+    const OneOrZeroGoodNumbAddNumbChange= '1 ou 0 bon numéro + numéro chance';
     /**
      * @var int
      *
@@ -25,7 +34,7 @@ class GoodNumber
     /**
      * @var int
      *
-     * @ORM\Column(name="title", type="string", nullable=true)
+     * @ORM\Column(name="title", type="string",  length=255,nullable=true)
      */
     private $title;
 
@@ -57,11 +66,10 @@ class GoodNumber
     private $lottery;
 
      /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Result", inversedBy="goodNumbers")
-     */
+      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Result", inversedBy="goodNumbers")
+      */
     private $result;
-
-
+    
     /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
@@ -76,5 +84,5 @@ class GoodNumber
      */
     private $updated;
 
-
+    
 }

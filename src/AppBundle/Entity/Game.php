@@ -34,7 +34,7 @@ class Game
     /**
      * @var int
      *
-     * @ORM\Column(name="number_max", type="integer")
+     * @ORM\Column(name="number_max", type="integer",nullable=true)
      */
     private $min;
 
@@ -51,7 +51,12 @@ class Game
      * @ORM\Column(name="length", type="string", length=255, nullable=true)
      */
     private $length;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Result", mappedBy="game",cascade={"persist", "remove"})
+     */
+    private $results;
+    
     /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
@@ -72,7 +77,14 @@ class Game
      * @ORM\Column(name="visible", type="boolean", nullable=true ,options={ "default":true })
      */
     private $visible;
-
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->results = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -82,16 +94,6 @@ class Game
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -109,13 +111,13 @@ class Game
     }
 
     /**
-     * Get min
+     * Get name
      *
-     * @return integer
+     * @return string
      */
-    public function getMin()
+    public function getName()
     {
-        return $this->min;
+        return $this->name;
     }
 
     /**
@@ -133,13 +135,13 @@ class Game
     }
 
     /**
-     * Get max
+     * Get min
      *
-     * @return string
+     * @return integer
      */
-    public function getMax()
+    public function getMin()
     {
-        return $this->max;
+        return $this->min;
     }
 
     /**
@@ -157,13 +159,13 @@ class Game
     }
 
     /**
-     * Get length
+     * Get max
      *
      * @return string
      */
-    public function getLength()
+    public function getMax()
     {
-        return $this->length;
+        return $this->max;
     }
 
     /**
@@ -181,13 +183,13 @@ class Game
     }
 
     /**
-     * Get created
+     * Get length
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreated()
+    public function getLength()
     {
-        return $this->created;
+        return $this->length;
     }
 
     /**
@@ -205,13 +207,13 @@ class Game
     }
 
     /**
-     * Get updated
+     * Get created
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getCreated()
     {
-        return $this->updated;
+        return $this->created;
     }
 
     /**
@@ -229,13 +231,13 @@ class Game
     }
 
     /**
-     * Get visible
+     * Get updated
      *
-     * @return boolean
+     * @return \DateTime
      */
-    public function getVisible()
+    public function getUpdated()
     {
-        return $this->visible;
+        return $this->updated;
     }
 
     /**
@@ -250,5 +252,49 @@ class Game
         $this->visible = $visible;
 
         return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Add result
+     *
+     * @param \AppBundle\Entity\Result $result
+     *
+     * @return Game
+     */
+    public function addResult(\AppBundle\Entity\Result $result)
+    {
+        $this->results[] = $result;
+
+        return $this;
+    }
+
+    /**
+     * Remove result
+     *
+     * @param \AppBundle\Entity\Result $result
+     */
+    public function removeResult(\AppBundle\Entity\Result $result)
+    {
+        $this->results->removeElement($result);
+    }
+
+    /**
+     * Get results
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResults()
+    {
+        return $this->results;
     }
 }

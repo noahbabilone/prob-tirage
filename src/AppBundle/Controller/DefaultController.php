@@ -25,13 +25,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        foreach (range(0, 100) as $range) {
-            $number = new Number();
-            $number->setValue($range)->setVisible(true);
-            $em->persist($number);
-            if ($range % 10 == 0) $em->flush();
-        }
-        
+       
         dump("Fini");
         die;
 
