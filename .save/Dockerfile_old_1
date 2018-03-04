@@ -1,0 +1,52 @@
+# See https://github.com/docker-library/php/blob/master/7.1/fpm/Dockerfile
+FROM php:7.1-fpm 
+MAINTAINER YSAID <ysadi@u-pro.fr>
+RUN apt-get update && apt-get install -y \
+    openssl zip unzip vim curl wget git nginx
+        
+
+RUN docker-php-ext-install pdo pdo_mysql
+
+#gd
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
+	
+#mysql 
+RUN docker-php-ext-install pdo pdo_mysql   
+
+# install xdebug
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
+RUN echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+RUN docker-php-ext-install mcrypt    
+
+
+ADD nginx.conf /etc/nginx/
+ADD symfony.conf /etc/nginx/sites-available/default
+#RUN echo "listen = 127.0.0.1:9000" >> /etc/php/7.1/fpm/pool.d/www.conf
+#RUN service php7.1-fpm restart
+#Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer --version
+
+COPY . /var/www/projet/
+
+RUN usermod -u 1000 www-data
+WORKDIR /var/www/projet/
+RUN chmod +x init.sh 
+
+EXPOSE 80 3306 9000
+CMD nginx
+#CMD ./init.sh && nginx

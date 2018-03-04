@@ -63,15 +63,406 @@ this.activeTarget=b,this.clear();var c=this.selector+'[data-target="'+b+'"],'+th
  */
 
 (function(){var t=[].slice;!function(e,i){"use strict";var n;return n=function(){function t(t,i){null==i&&(i={}),this.$element=e(t),this.options=e.extend({},e.fn.bootstrapSwitch.defaults,{state:this.$element.is(":checked"),size:this.$element.data("size"),animate:this.$element.data("animate"),disabled:this.$element.is(":disabled"),readonly:this.$element.is("[readonly]"),indeterminate:this.$element.data("indeterminate"),inverse:this.$element.data("inverse"),radioAllOff:this.$element.data("radio-all-off"),onColor:this.$element.data("on-color"),offColor:this.$element.data("off-color"),onText:this.$element.data("on-text"),offText:this.$element.data("off-text"),labelText:this.$element.data("label-text"),handleWidth:this.$element.data("handle-width"),labelWidth:this.$element.data("label-width"),baseClass:this.$element.data("base-class"),wrapperClass:this.$element.data("wrapper-class")},i),this.$wrapper=e("<div>",{"class":function(t){return function(){var e;return e=[""+t.options.baseClass].concat(t._getClasses(t.options.wrapperClass)),e.push(t.options.state?""+t.options.baseClass+"-on":""+t.options.baseClass+"-off"),null!=t.options.size&&e.push(""+t.options.baseClass+"-"+t.options.size),t.options.disabled&&e.push(""+t.options.baseClass+"-disabled"),t.options.readonly&&e.push(""+t.options.baseClass+"-readonly"),t.options.indeterminate&&e.push(""+t.options.baseClass+"-indeterminate"),t.options.inverse&&e.push(""+t.options.baseClass+"-inverse"),t.$element.attr("id")&&e.push(""+t.options.baseClass+"-id-"+t.$element.attr("id")),e.join(" ")}}(this)()}),this.$container=e("<div>",{"class":""+this.options.baseClass+"-container"}),this.$on=e("<span>",{html:this.options.onText,"class":""+this.options.baseClass+"-handle-on "+this.options.baseClass+"-"+this.options.onColor}),this.$off=e("<span>",{html:this.options.offText,"class":""+this.options.baseClass+"-handle-off "+this.options.baseClass+"-"+this.options.offColor}),this.$label=e("<span>",{html:this.options.labelText,"class":""+this.options.baseClass+"-label"}),this.$element.on("init.bootstrapSwitch",function(e){return function(){return e.options.onInit.apply(t,arguments)}}(this)),this.$element.on("switchChange.bootstrapSwitch",function(e){return function(){return e.options.onSwitchChange.apply(t,arguments)}}(this)),this.$container=this.$element.wrap(this.$container).parent(),this.$wrapper=this.$container.wrap(this.$wrapper).parent(),this.$element.before(this.options.inverse?this.$off:this.$on).before(this.$label).before(this.options.inverse?this.$on:this.$off),this.options.indeterminate&&this.$element.prop("indeterminate",!0),this._init(),this._elementHandlers(),this._handleHandlers(),this._labelHandlers(),this._formHandler(),this._externalLabelHandler(),this.$element.trigger("init.bootstrapSwitch")}return t.prototype._constructor=t,t.prototype.state=function(t,e){return"undefined"==typeof t?this.options.state:this.options.disabled||this.options.readonly?this.$element:this.options.state&&!this.options.radioAllOff&&this.$element.is(":radio")?this.$element:(this.options.indeterminate&&this.indeterminate(!1),t=!!t,this.$element.prop("checked",t).trigger("change.bootstrapSwitch",e),this.$element)},t.prototype.toggleState=function(t){return this.options.disabled||this.options.readonly?this.$element:this.options.indeterminate?(this.indeterminate(!1),this.state(!0)):this.$element.prop("checked",!this.options.state).trigger("change.bootstrapSwitch",t)},t.prototype.size=function(t){return"undefined"==typeof t?this.options.size:(null!=this.options.size&&this.$wrapper.removeClass(""+this.options.baseClass+"-"+this.options.size),t&&this.$wrapper.addClass(""+this.options.baseClass+"-"+t),this._width(),this._containerPosition(),this.options.size=t,this.$element)},t.prototype.animate=function(t){return"undefined"==typeof t?this.options.animate:(t=!!t,t===this.options.animate?this.$element:this.toggleAnimate())},t.prototype.toggleAnimate=function(){return this.options.animate=!this.options.animate,this.$wrapper.toggleClass(""+this.options.baseClass+"-animate"),this.$element},t.prototype.disabled=function(t){return"undefined"==typeof t?this.options.disabled:(t=!!t,t===this.options.disabled?this.$element:this.toggleDisabled())},t.prototype.toggleDisabled=function(){return this.options.disabled=!this.options.disabled,this.$element.prop("disabled",this.options.disabled),this.$wrapper.toggleClass(""+this.options.baseClass+"-disabled"),this.$element},t.prototype.readonly=function(t){return"undefined"==typeof t?this.options.readonly:(t=!!t,t===this.options.readonly?this.$element:this.toggleReadonly())},t.prototype.toggleReadonly=function(){return this.options.readonly=!this.options.readonly,this.$element.prop("readonly",this.options.readonly),this.$wrapper.toggleClass(""+this.options.baseClass+"-readonly"),this.$element},t.prototype.indeterminate=function(t){return"undefined"==typeof t?this.options.indeterminate:(t=!!t,t===this.options.indeterminate?this.$element:this.toggleIndeterminate())},t.prototype.toggleIndeterminate=function(){return this.options.indeterminate=!this.options.indeterminate,this.$element.prop("indeterminate",this.options.indeterminate),this.$wrapper.toggleClass(""+this.options.baseClass+"-indeterminate"),this._containerPosition(),this.$element},t.prototype.inverse=function(t){return"undefined"==typeof t?this.options.inverse:(t=!!t,t===this.options.inverse?this.$element:this.toggleInverse())},t.prototype.toggleInverse=function(){var t,e;return this.$wrapper.toggleClass(""+this.options.baseClass+"-inverse"),e=this.$on.clone(!0),t=this.$off.clone(!0),this.$on.replaceWith(t),this.$off.replaceWith(e),this.$on=t,this.$off=e,this.options.inverse=!this.options.inverse,this.$element},t.prototype.onColor=function(t){var e;return e=this.options.onColor,"undefined"==typeof t?e:(null!=e&&this.$on.removeClass(""+this.options.baseClass+"-"+e),this.$on.addClass(""+this.options.baseClass+"-"+t),this.options.onColor=t,this.$element)},t.prototype.offColor=function(t){var e;return e=this.options.offColor,"undefined"==typeof t?e:(null!=e&&this.$off.removeClass(""+this.options.baseClass+"-"+e),this.$off.addClass(""+this.options.baseClass+"-"+t),this.options.offColor=t,this.$element)},t.prototype.onText=function(t){return"undefined"==typeof t?this.options.onText:(this.$on.html(t),this._width(),this._containerPosition(),this.options.onText=t,this.$element)},t.prototype.offText=function(t){return"undefined"==typeof t?this.options.offText:(this.$off.html(t),this._width(),this._containerPosition(),this.options.offText=t,this.$element)},t.prototype.labelText=function(t){return"undefined"==typeof t?this.options.labelText:(this.$label.html(t),this._width(),this.options.labelText=t,this.$element)},t.prototype.handleWidth=function(t){return"undefined"==typeof t?this.options.handleWidth:(this.options.handleWidth=t,this._width(),this._containerPosition(),this.$element)},t.prototype.labelWidth=function(t){return"undefined"==typeof t?this.options.labelWidth:(this.options.labelWidth=t,this._width(),this._containerPosition(),this.$element)},t.prototype.baseClass=function(){return this.options.baseClass},t.prototype.wrapperClass=function(t){return"undefined"==typeof t?this.options.wrapperClass:(t||(t=e.fn.bootstrapSwitch.defaults.wrapperClass),this.$wrapper.removeClass(this._getClasses(this.options.wrapperClass).join(" ")),this.$wrapper.addClass(this._getClasses(t).join(" ")),this.options.wrapperClass=t,this.$element)},t.prototype.radioAllOff=function(t){return"undefined"==typeof t?this.options.radioAllOff:(t=!!t,t===this.options.radioAllOff?this.$element:(this.options.radioAllOff=t,this.$element))},t.prototype.onInit=function(t){return"undefined"==typeof t?this.options.onInit:(t||(t=e.fn.bootstrapSwitch.defaults.onInit),this.options.onInit=t,this.$element)},t.prototype.onSwitchChange=function(t){return"undefined"==typeof t?this.options.onSwitchChange:(t||(t=e.fn.bootstrapSwitch.defaults.onSwitchChange),this.options.onSwitchChange=t,this.$element)},t.prototype.destroy=function(){var t;return t=this.$element.closest("form"),t.length&&t.off("reset.bootstrapSwitch").removeData("bootstrap-switch"),this.$container.children().not(this.$element).remove(),this.$element.unwrap().unwrap().off(".bootstrapSwitch").removeData("bootstrap-switch"),this.$element},t.prototype._width=function(){var t,e;return t=this.$on.add(this.$off),t.add(this.$label).css("width",""),e="auto"===this.options.handleWidth?Math.max(this.$on.width(),this.$off.width()):this.options.handleWidth,t.width(e),this.$label.width(function(t){return function(i,n){return"auto"!==t.options.labelWidth?t.options.labelWidth:e>n?e:n}}(this)),this._handleWidth=this.$on.outerWidth(),this._labelWidth=this.$label.outerWidth(),this.$container.width(2*this._handleWidth+this._labelWidth),this.$wrapper.width(this._handleWidth+this._labelWidth)},t.prototype._containerPosition=function(t,e){return null==t&&(t=this.options.state),this.$container.css("margin-left",function(e){return function(){var i;return i=[0,"-"+e._handleWidth+"px"],e.options.indeterminate?"-"+e._handleWidth/2+"px":t?e.options.inverse?i[1]:i[0]:e.options.inverse?i[0]:i[1]}}(this)),e?setTimeout(function(){return e()},50):void 0},t.prototype._init=function(){var t,e;return t=function(t){return function(){return t._width(),t._containerPosition(null,function(){return t.options.animate?t.$wrapper.addClass(""+t.options.baseClass+"-animate"):void 0})}}(this),this.$wrapper.is(":visible")?t():e=i.setInterval(function(n){return function(){return n.$wrapper.is(":visible")?(t(),i.clearInterval(e)):void 0}}(this),50)},t.prototype._elementHandlers=function(){return this.$element.on({"change.bootstrapSwitch":function(t){return function(i,n){var o;return i.preventDefault(),i.stopImmediatePropagation(),o=t.$element.is(":checked"),t._containerPosition(o),o!==t.options.state?(t.options.state=o,t.$wrapper.toggleClass(""+t.options.baseClass+"-off").toggleClass(""+t.options.baseClass+"-on"),n?void 0:(t.$element.is(":radio")&&e("[name='"+t.$element.attr("name")+"']").not(t.$element).prop("checked",!1).trigger("change.bootstrapSwitch",!0),t.$element.trigger("switchChange.bootstrapSwitch",[o]))):void 0}}(this),"focus.bootstrapSwitch":function(t){return function(e){return e.preventDefault(),t.$wrapper.addClass(""+t.options.baseClass+"-focused")}}(this),"blur.bootstrapSwitch":function(t){return function(e){return e.preventDefault(),t.$wrapper.removeClass(""+t.options.baseClass+"-focused")}}(this),"keydown.bootstrapSwitch":function(t){return function(e){if(e.which&&!t.options.disabled&&!t.options.readonly)switch(e.which){case 37:return e.preventDefault(),e.stopImmediatePropagation(),t.state(!1);case 39:return e.preventDefault(),e.stopImmediatePropagation(),t.state(!0)}}}(this)})},t.prototype._handleHandlers=function(){return this.$on.on("click.bootstrapSwitch",function(t){return function(e){return e.preventDefault(),e.stopPropagation(),t.state(!1),t.$element.trigger("focus.bootstrapSwitch")}}(this)),this.$off.on("click.bootstrapSwitch",function(t){return function(e){return e.preventDefault(),e.stopPropagation(),t.state(!0),t.$element.trigger("focus.bootstrapSwitch")}}(this))},t.prototype._labelHandlers=function(){return this.$label.on({"mousedown.bootstrapSwitch touchstart.bootstrapSwitch":function(t){return function(e){return t._dragStart||t.options.disabled||t.options.readonly?void 0:(e.preventDefault(),e.stopPropagation(),t._dragStart=(e.pageX||e.originalEvent.touches[0].pageX)-parseInt(t.$container.css("margin-left"),10),t.options.animate&&t.$wrapper.removeClass(""+t.options.baseClass+"-animate"),t.$element.trigger("focus.bootstrapSwitch"))}}(this),"mousemove.bootstrapSwitch touchmove.bootstrapSwitch":function(t){return function(e){var i;if(null!=t._dragStart&&(e.preventDefault(),i=(e.pageX||e.originalEvent.touches[0].pageX)-t._dragStart,!(i<-t._handleWidth||i>0)))return t._dragEnd=i,t.$container.css("margin-left",""+t._dragEnd+"px")}}(this),"mouseup.bootstrapSwitch touchend.bootstrapSwitch":function(t){return function(e){var i;if(t._dragStart)return e.preventDefault(),t.options.animate&&t.$wrapper.addClass(""+t.options.baseClass+"-animate"),t._dragEnd?(i=t._dragEnd>-(t._handleWidth/2),t._dragEnd=!1,t.state(t.options.inverse?!i:i)):t.state(!t.options.state),t._dragStart=!1}}(this),"mouseleave.bootstrapSwitch":function(t){return function(){return t.$label.trigger("mouseup.bootstrapSwitch")}}(this)})},t.prototype._externalLabelHandler=function(){var t;return t=this.$element.closest("label"),t.on("click",function(e){return function(i){return i.preventDefault(),i.stopImmediatePropagation(),i.target===t[0]?e.toggleState():void 0}}(this))},t.prototype._formHandler=function(){var t;return t=this.$element.closest("form"),t.data("bootstrap-switch")?void 0:t.on("reset.bootstrapSwitch",function(){return i.setTimeout(function(){return t.find("input").filter(function(){return e(this).data("bootstrap-switch")}).each(function(){return e(this).bootstrapSwitch("state",this.checked)})},1)}).data("bootstrap-switch",!0)},t.prototype._getClasses=function(t){var i,n,o,s;if(!e.isArray(t))return[""+this.options.baseClass+"-"+t];for(n=[],o=0,s=t.length;s>o;o++)i=t[o],n.push(""+this.options.baseClass+"-"+i);return n},t}(),e.fn.bootstrapSwitch=function(){var i,o,s;return o=arguments[0],i=2<=arguments.length?t.call(arguments,1):[],s=this,this.each(function(){var t,a;return t=e(this),a=t.data("bootstrap-switch"),a||t.data("bootstrap-switch",a=new n(this,o)),"string"==typeof o?s=a[o].apply(a,i):void 0}),s},e.fn.bootstrapSwitch.Constructor=n,e.fn.bootstrapSwitch.defaults={state:!0,size:null,animate:!0,disabled:!1,readonly:!1,indeterminate:!1,inverse:!1,radioAllOff:!1,onColor:"primary",offColor:"default",onText:"ON",offText:"OFF",labelText:"&nbsp;",handleWidth:"auto",labelWidth:"auto",baseClass:"bootstrap-switch",wrapperClass:"wrapper",onInit:function(){},onSwitchChange:function(){}}}(window.jQuery,window)}).call(this);
+(function (root, factory) {
+    var routing = factory();
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define([], routing.Routing);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = routing.Routing;
+    } else {
+        // Browser globals (root is window)
+        root.Routing = routing.Routing;
+        root.fos = {
+            Router: routing.Router,
+        };
+    }
+}(this, function () {
+    'use strict';
+
 /**
- * Portions of this code are from the Google Closure Library,
- * received from the Closure Authors under the Apache 2.0 license.
+ * @fileoverview This file defines the Router class.
  *
- * All other code is (C) FriendsOfSymfony and subject to the MIT license.
+ * You can compile this file by running the following command from the Resources folder:
+ *
+ *    npm install && npm run build
  */
-(function() {var f,l=this;function m(a,c){var b=a.split("."),d=l;b[0]in d||!d.execScript||d.execScript("var "+b[0]);for(var e;b.length&&(e=b.shift());)b.length||void 0===c?d=d[e]?d[e]:d[e]={}:d[e]=c};var n=Array.prototype,p=n.forEach?function(a,c,b){n.forEach.call(a,c,b)}:function(a,c,b){for(var d=a.length,e="string"==typeof a?a.split(""):a,g=0;g<d;g++)g in e&&c.call(b,e[g],g,a)};function q(a){var c=0,b;for(b in a)c++;return c}function r(a){var c={},b;for(b in a)c[b]=a[b];return c};function s(a,c){this.c={};this.b=[];var b=arguments.length;if(1<b){if(b%2)throw Error("Uneven number of arguments");for(var d=0;d<b;d+=2)this.set(arguments[d],arguments[d+1])}else if(a){var e;if(a instanceof s)for(u(a),d=a.b.concat(),u(a),e=[],b=0;b<a.b.length;b++)e.push(a.c[a.b[b]]);else{var b=[],g=0;for(d in a)b[g++]=d;d=b;b=[];g=0;for(e in a)b[g++]=a[e];e=b}for(b=0;b<d.length;b++)this.set(d[b],e[b])}}s.prototype.f=0;s.prototype.p=0;
-function u(a){if(a.f!=a.b.length){for(var c=0,b=0;c<a.b.length;){var d=a.b[c];v(a.c,d)&&(a.b[b++]=d);c++}a.b.length=b}if(a.f!=a.b.length){for(var e={},b=c=0;c<a.b.length;)d=a.b[c],v(e,d)||(a.b[b++]=d,e[d]=1),c++;a.b.length=b}}s.prototype.get=function(a,c){return v(this.c,a)?this.c[a]:c};s.prototype.set=function(a,c){v(this.c,a)||(this.f++,this.b.push(a),this.p++);this.c[a]=c};function v(a,c){return Object.prototype.hasOwnProperty.call(a,c)};var w,x,y,A;function B(){return l.navigator?l.navigator.userAgent:null}A=y=x=w=!1;var C;if(C=B()){var D=l.navigator;w=0==C.lastIndexOf("Opera",0);x=!w&&(-1!=C.indexOf("MSIE")||-1!=C.indexOf("Trident"));y=!w&&-1!=C.indexOf("WebKit");A=!w&&!y&&!x&&"Gecko"==D.product}var E=x,G=A,H=y;var I;if(w&&l.opera){var J=l.opera.version;"function"==typeof J&&J()}else G?I=/rv\:([^\);]+)(\)|;)/:E?I=/\b(?:MSIE|rv)\s+([^\);]+)(\)|;)/:H&&(I=/WebKit\/(\S+)/),I&&I.exec(B());function K(a,c){this.a=a||{e:"",prefix:"",host:"",scheme:""};this.h(c||{})}K.g=function(){return K.j?K.j:K.j=new K};f=K.prototype;f.h=function(a){this.d=new s(a)};f.o=function(){return this.d};f.k=function(a){this.a.e=a};f.n=function(){return this.a.e};f.l=function(a){this.a.prefix=a};
-function L(a,c,b,d){var e,g=RegExp(/\[\]$/);if(b instanceof Array)p(b,function(b,e){g.test(c)?d(c,b):L(a,c+"["+("object"===typeof b?e:"")+"]",b,d)});else if("object"===typeof b)for(e in b)L(a,c+"["+e+"]",b[e],d);else d(c,b)}f.i=function(a){var c=this.a.prefix+a;if(v(this.d.c,c))a=c;else if(!v(this.d.c,a))throw Error('The route "'+a+'" does not exist.');return this.d.get(a)};
-f.m=function(a,c,b){var d=this.i(a),e=c||{},g=r(e),h="",t=!0,k="";p(d.tokens,function(b){if("text"===b[0])h=b[1]+h,t=!1;else if("variable"===b[0]){var c=b[3]in d.defaults;if(!1===t||!c||b[3]in e&&e[b[3]]!=d.defaults[b[3]]){if(b[3]in e){var c=e[b[3]],k=b[3];k in g&&delete g[k]}else if(c)c=d.defaults[b[3]];else{if(t)return;throw Error('The route "'+a+'" requires the parameter "'+b[3]+'".');}if(!0!==c&&!1!==c&&""!==c||!t)k=encodeURIComponent(c).replace(/%2F/g,"/"),"null"===k&&null===c&&(k=""),h=b[1]+
-k+h;t=!1}else c&&(b=b[3],b in g&&delete g[b])}else throw Error('The token type "'+b[0]+'" is not supported.');});""===h&&(h="/");p(d.hosttokens,function(a){var b;if("text"===a[0])k=a[1]+k;else if("variable"===a[0]){if(a[3]in e){b=e[a[3]];var c=a[3];c in g&&delete g[c]}else a[3]in d.defaults&&(b=d.defaults[a[3]]);k=a[1]+b+k}});h=this.a.e+h;"_scheme"in d.requirements&&this.a.scheme!=d.requirements._scheme?h=d.requirements._scheme+"://"+(k||this.a.host)+h:"schemes"in d&&"undefined"!==typeof d.schemes[0]&&
-this.a.scheme!=d.schemes[0]?h=d.schemes[0]+"://"+(k||this.a.host)+h:k&&this.a.host!==k?h=this.a.scheme+"://"+k+h:!0===b&&(h=this.a.scheme+"://"+this.a.host+h);if(0<q(g)){var z,F=[];c=function(a,b){b="function"===typeof b?b():b;F.push(encodeURIComponent(a)+"\x3d"+encodeURIComponent(null===b?"":b))};for(z in g)L(this,z,g[z],c);h=h+"?"+F.join("\x26").replace(/%20/g,"+")}return h};m("fos.Router",K);m("fos.Router.setData",function(a){var c=K.g();c.k(a.base_url);c.h(a.routes);"prefix"in a&&c.l(a.prefix);c.a.host=a.host;c.a.scheme=a.scheme});K.getInstance=K.g;K.prototype.setRoutes=K.prototype.h;K.prototype.getRoutes=K.prototype.o;K.prototype.setBaseUrl=K.prototype.k;K.prototype.getBaseUrl=K.prototype.n;K.prototype.generate=K.prototype.m;K.prototype.setPrefix=K.prototype.l;K.prototype.getRoute=K.prototype.i;window.Routing=K.g();})();
+
+/**
+ * Class Router
+ */
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Router = function () {
+
+    /**
+     * @constructor
+     * @param {Router.Context=} context
+     * @param {Object.<string, Router.Route>=} routes
+     */
+    function Router(context, routes) {
+        _classCallCheck(this, Router);
+
+        this.context_ = context || { base_url: '', prefix: '', host: '', scheme: '' };
+        this.setRoutes(routes || {});
+    }
+
+    /**
+     * Returns the current instance.
+     * @returns {Router}
+     */
+
+
+    _createClass(Router, [{
+        key: 'setRoutingData',
+
+
+        /**
+         * Sets data for the current instance
+         * @param {Object} data
+         */
+        value: function setRoutingData(data) {
+            this.setBaseUrl(data['base_url']);
+            this.setRoutes(data['routes']);
+
+            if ('prefix' in data) {
+                this.setPrefix(data['prefix']);
+            }
+
+            this.setHost(data['host']);
+            this.setScheme(data['scheme']);
+        }
+
+        /**
+         * @param {Object.<string, Router.Route>} routes
+         */
+
+    }, {
+        key: 'setRoutes',
+        value: function setRoutes(routes) {
+            this.routes_ = Object.freeze(routes);
+        }
+
+        /**
+         * @return {Object.<string, Router.Route>} routes
+         */
+
+    }, {
+        key: 'getRoutes',
+        value: function getRoutes() {
+            return this.routes_;
+        }
+
+        /**
+         * @param {string} baseUrl
+         */
+
+    }, {
+        key: 'setBaseUrl',
+        value: function setBaseUrl(baseUrl) {
+            this.context_.base_url = baseUrl;
+        }
+
+        /**
+         * @return {string}
+         */
+
+    }, {
+        key: 'getBaseUrl',
+        value: function getBaseUrl() {
+            return this.context_.base_url;
+        }
+
+        /**
+         * @param {string} prefix
+         */
+
+    }, {
+        key: 'setPrefix',
+        value: function setPrefix(prefix) {
+            this.context_.prefix = prefix;
+        }
+
+        /**
+         * @param {string} scheme
+         */
+
+    }, {
+        key: 'setScheme',
+        value: function setScheme(scheme) {
+            this.context_.scheme = scheme;
+        }
+
+        /**
+         * @return {string}
+         */
+
+    }, {
+        key: 'getScheme',
+        value: function getScheme() {
+            return this.context_.scheme;
+        }
+
+        /**
+         * @param {string} host
+         */
+
+    }, {
+        key: 'setHost',
+        value: function setHost(host) {
+            this.context_.host = host;
+        }
+
+        /**
+         * @return {string}
+         */
+
+    }, {
+        key: 'getHost',
+        value: function getHost() {
+            return this.context_.host;
+        }
+
+        /**
+         * Builds query string params added to a URL.
+         * Port of jQuery's $.param() function, so credit is due there.
+         *
+         * @param {string} prefix
+         * @param {Array|Object|string} params
+         * @param {Function} add
+         */
+
+    }, {
+        key: 'buildQueryParams',
+        value: function buildQueryParams(prefix, params, add) {
+            var _this = this;
+
+            var name = void 0;
+            var rbracket = new RegExp(/\[\]$/);
+
+            if (params instanceof Array) {
+                params.forEach(function (val, i) {
+                    if (rbracket.test(prefix)) {
+                        add(prefix, val);
+                    } else {
+                        _this.buildQueryParams(prefix + '[' + ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object' ? i : '') + ']', val, add);
+                    }
+                });
+            } else if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) === 'object') {
+                for (name in params) {
+                    this.buildQueryParams(prefix + '[' + name + ']', params[name], add);
+                }
+            } else {
+                add(prefix, params);
+            }
+        }
+
+        /**
+         * Returns a raw route object.
+         *
+         * @param {string} name
+         * @return {Router.Route}
+         */
+
+    }, {
+        key: 'getRoute',
+        value: function getRoute(name) {
+            var prefixedName = this.context_.prefix + name;
+
+            if (!(prefixedName in this.routes_)) {
+                // Check first for default route before failing
+                if (!(name in this.routes_)) {
+                    throw new Error('The route "' + name + '" does not exist.');
+                }
+            } else {
+                name = prefixedName;
+            }
+
+            return this.routes_[name];
+        }
+
+        /**
+         * Generates the URL for a route.
+         *
+         * @param {string} name
+         * @param {Object.<string, string>} opt_params
+         * @param {boolean} absolute
+         * @return {string}
+         */
+
+    }, {
+        key: 'generate',
+        value: function generate(name, opt_params, absolute) {
+            var route = this.getRoute(name),
+                params = opt_params || {},
+                unusedParams = _extends({}, params),
+                url = '',
+                optional = true,
+                host = '';
+
+            route.tokens.forEach(function (token) {
+                if ('text' === token[0]) {
+                    url = token[1] + url;
+                    optional = false;
+
+                    return;
+                }
+
+                if ('variable' === token[0]) {
+                    var hasDefault = route.defaults && token[3] in route.defaults;
+                    if (false === optional || !hasDefault || token[3] in params && params[token[3]] != route.defaults[token[3]]) {
+                        var value = void 0;
+
+                        if (token[3] in params) {
+                            value = params[token[3]];
+                            delete unusedParams[token[3]];
+                        } else if (hasDefault) {
+                            value = route.defaults[token[3]];
+                        } else if (optional) {
+                            return;
+                        } else {
+                            throw new Error('The route "' + name + '" requires the parameter "' + token[3] + '".');
+                        }
+
+                        var empty = true === value || false === value || '' === value;
+
+                        if (!empty || !optional) {
+                            var encodedValue = encodeURIComponent(value).replace(/%2F/g, '/');
+
+                            if ('null' === encodedValue && null === value) {
+                                encodedValue = '';
+                            }
+
+                            url = token[1] + encodedValue + url;
+                        }
+
+                        optional = false;
+                    } else if (hasDefault && token[3] in unusedParams) {
+                        delete unusedParams[token[3]];
+                    }
+
+                    return;
+                }
+
+                throw new Error('The token type "' + token[0] + '" is not supported.');
+            });
+
+            if (url === '') {
+                url = '/';
+            }
+
+            route.hosttokens.forEach(function (token) {
+                var value = void 0;
+
+                if ('text' === token[0]) {
+                    host = token[1] + host;
+
+                    return;
+                }
+
+                if ('variable' === token[0]) {
+                    if (token[3] in params) {
+                        value = params[token[3]];
+                        delete unusedParams[token[3]];
+                    } else if (route.defaults && token[3] in route.defaults) {
+                        value = route.defaults[token[3]];
+                    }
+
+                    host = token[1] + value + host;
+                }
+            });
+            // Foo-bar!
+            url = this.context_.base_url + url;
+            if (route.requirements && "_scheme" in route.requirements && this.getScheme() != route.requirements["_scheme"]) {
+                url = route.requirements["_scheme"] + "://" + (host || this.getHost()) + url;
+            } else if ("undefined" !== typeof route.schemes && "undefined" !== typeof route.schemes[0] && this.getScheme() !== route.schemes[0]) {
+                url = route.schemes[0] + "://" + (host || this.getHost()) + url;
+            } else if (host && this.getHost() !== host) {
+                url = this.getScheme() + "://" + host + url;
+            } else if (absolute === true) {
+                url = this.getScheme() + "://" + this.getHost() + url;
+            }
+
+            if (Object.keys(unusedParams).length > 0) {
+                var prefix = void 0;
+                var queryParams = [];
+                var add = function add(key, value) {
+                    // if value is a function then call it and assign it's return value as value
+                    value = typeof value === 'function' ? value() : value;
+
+                    // change null to empty string
+                    value = value === null ? '' : value;
+
+                    queryParams.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+                };
+
+                for (prefix in unusedParams) {
+                    this.buildQueryParams(prefix, unusedParams[prefix], add);
+                }
+
+                url = url + '?' + queryParams.join('&').replace(/%20/g, '+');
+            }
+
+            return url;
+        }
+    }], [{
+        key: 'getInstance',
+        value: function getInstance() {
+            return Routing;
+        }
+
+        /**
+         * Configures the current Router instance with the provided data.
+         * @param {Object} data
+         */
+
+    }, {
+        key: 'setData',
+        value: function setData(data) {
+            var router = Router.getInstance();
+
+            router.setRoutingData(data);
+        }
+    }]);
+
+    return Router;
+}();
+
+/**
+ * @typedef {{
+ *     tokens: (Array.<Array.<string>>),
+ *     defaults: (Object.<string, string>),
+ *     requirements: Object,
+ *     hosttokens: (Array.<string>)
+ * }}
+ */
+
+
+Router.Route;
+
+/**
+ * @typedef {{
+ *     base_url: (string)
+ * }}
+ */
+Router.Context;
+
+/**
+ * Router singleton.
+ * @const
+ * @type {Router}
+ */
+var Routing = new Router();
+
+    return { Router: Router, Routing: Routing };
+}));

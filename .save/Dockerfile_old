@@ -1,0 +1,40 @@
+FROM debian
+MAINTAINER Upro/ys
+
+RUN apt-get update -y && apt-get install -y zip unzip vim curl wget git nginx
+
+RUN apt-get install -y apt-transport-https lsb-release ca-certificates
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" >> /etc/apt/sources.list.d/php.list
+RUN apt-get update -y
+
+RUN apt-get install -y php7.1 php7.1-opcache php7.1-mysql php7.1-curl php7.1-json php7.1-gd php7.1-mcrypt php7.1-intl php7.1-mbstring php7.1-xml php7.1-zip php7.1-fpm php7.1-readline
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer --version
+
+RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
+RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
+RUN apt-get install -y mysql-server 
+##RUN mysql_secure_installation  
+
+# Copy a configuration file from the current directory
+ADD nginx.conf /etc/nginx/
+ADD symfony.conf /etc/nginx/sites-available/default
+RUN echo "listen = 127.0.0.1:9000" >> /etc/php/7.1/fpm/pool.d/www.conf
+RUN service php7.1-fpm restart
+#RUN rm /etc/nginx/sites-enabled/default
+#RUN ln -s /etc/nginx/sites-available/symfony.conf /etc/nginx/sites-enabled/symfony
+
+COPY . /var/www/projet/
+
+RUN usermod -u 1000 www-data
+WORKDIR /var/www/projet/
+RUN chmod +x init.sh 
+#RUN ./init.sh
+
+EXPOSE 80 3306 9000
+CMD ./init.sh && nginx
+
+#CMD ["nginx", "-g", "daemon off;"]
+#RUN echo "daemon off;" >> /etc/nginx/nginx.conf

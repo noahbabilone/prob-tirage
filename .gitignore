@@ -19,3 +19,5 @@
 src/AppBundle/Entity/ResultNumber.php~
 \.idea/
 /var/data/*
+
+web/css/
